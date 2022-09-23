@@ -1,25 +1,38 @@
-import logo from './logo.svg';
+import Header from './components/Header';
 import './App.css';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import Button from '@mui/material/Button';
+import  AppBar  from '@mui/material/AppBar';
+import  Toolbar  from '@mui/material/Toolbar';
+import 'fontsource-roboto';
+import  Typography  from '@mui/material/Typography';
+import { makeStyles, ThemeProvider, createMUITheme} from '@mui/material/styles';
+import {blue} from '@mui/material/colors';
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <div> 
+      <h2> Forum </h2> 
+      <AppBar color = 'transparent'>
+        <Toolbar> 
+        <ButtonGroup className = 'App-button'> 
+            <Button 
+            variant = 'outlined'
+            size = 'small'>  
+            Log In
+            </Button>
+            <Button 
+            variant = 'contained'
+            size = 'small'
+            color = 'primary'>
+              Sign Up
+            </Button>
+      </ButtonGroup>
+        </Toolbar>
+      </AppBar>  
+    </div> 
+  )
 }
-
 export default App;
