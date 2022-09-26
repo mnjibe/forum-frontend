@@ -8,30 +8,28 @@ import 'fontsource-roboto';
 import  Typography  from '@mui/material/Typography';
 import { makeStyles, ThemeProvider, createMUITheme} from '@mui/material/styles';
 import {blue} from '@mui/material/colors';
+import {white} from '@mui/material/colors';
+import  TextField  from '@mui/material/TextField';
+import  InputBase  from '@mui/material/InputBase';
+import  Input  from '@mui/material/Input';
+import  SearchIcon from '@mui/icons-material/Search';
 
-
+const SearchBar = (placeholder, onChange) => {
+  return (
+    <div>
+      <SearchIcon /> 
+      <Input
+          placeholder={placeholder} 
+          onChange={onChange} 
+          />
+    </div>
+  )
+}
 
 function App() {
   return (
-    <div> 
-      <h2> Forum </h2> 
-      <AppBar color = 'transparent'>
-        <Toolbar> 
-        <ButtonGroup className = 'App-button'> 
-            <Button 
-            variant = 'outlined'
-            size = 'small'>  
-            Log In
-            </Button>
-            <Button 
-            variant = 'contained'
-            size = 'small'
-            color = 'primary'>
-              Sign Up
-            </Button>
-      </ButtonGroup>
-        </Toolbar>
-      </AppBar>  
+    <div>  
+      <Header />
     </div> 
   )
 }

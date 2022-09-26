@@ -1,5 +1,5 @@
 App-header {
-    background-color: black;
+    background-color:black;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -12,3 +12,11 @@ App-header {
  App-button { 
     margin: '0 1rem';
  } 
+
+ Search-bar {
+   accent-color: 'white';
+ }
+
+ .textfield__label {
+   color: aliceblue !important;
+ }
