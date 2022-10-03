@@ -6,7 +6,8 @@ import  SearchIcon from '@mui/icons-material/Search';
 import InboxIcon from '@mui/icons-material/Inbox';
 import 'fontsource-roboto';
 import { styled, alpha } from '@mui/material/styles';
-import InputBase from '@mui/material/InputBase';
+import InputBase from '@mui/material/InputBase'; 
+import Box from '@mui/material/Box';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -53,8 +54,10 @@ const Search = styled('div')(({ theme }) => ({
 function Header() { 
     return (
         <div>
-            <React.Fragment>
-                <AppBar sx={{background: '#063970'}}> 
+            <React.Fragment> 
+                <AppBar sx={{background: '#063970', display: 'flex'}}
+                position='fixed'
+                > 
                 <Toolbar> 
 
                     <Typography sx= {{fontSize: '2rem' }} color = 'primary'> FSC Forum</Typography>

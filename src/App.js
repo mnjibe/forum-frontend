@@ -1,4 +1,6 @@
-import Header from './components/Header';
+import Header from './components/Header'; 
+import Sidebar from './components/Sidebar';
+import Counter from './components/Counter'
 import './App.css';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
@@ -13,6 +15,8 @@ import  TextField  from '@mui/material/TextField';
 import  InputBase  from '@mui/material/InputBase';
 import  Input  from '@mui/material/Input';
 import  SearchIcon from '@mui/icons-material/Search';
+import Box from '@mui/material/Box';
+import  Stack  from '@mui/system/Stack';
 
 const SearchBar = (placeholder, onChange) => {
   return (
@@ -28,9 +32,17 @@ const SearchBar = (placeholder, onChange) => {
 
 function App() {
   return (
-    <div>  
-      <Header />
-    </div> 
+      <div> 
+<Sidebar /> 
+<Button 
+      sx = {{marginLeft: "300px", marginTop: "15px"}}
+      variant = 'contained'
+      size = 'large'
+      color = 'primary'
+      >
+        Post Your Answer
+      </Button>
+      </div>
   )
 }
 export default App;
