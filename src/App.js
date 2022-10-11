@@ -12,17 +12,18 @@ import SearchIcon from '@mui/icons-material/Search';
 import Posts from '../src/components/Posts'
 
 function App() {
-    const [posts, setPosts] = React.useState(null)
+    const [posts, setPosts] = React.useState()
+
+    const getPosts = async () => {
+        const { data } = await axios.get('http://localhost:6006/api/v1/posts')
+        setPosts(data);
+    };
 
     React.useEffect(() => {
-        axios.get('http://localhost:6006/api/v1/posts').then(function(res) {
-            console.log('res: ', res)
-            setPosts(res.data)
-        }).catch(function(err) {
-            console.log('err: ', err)
+        getPosts();
+    }, []);
 
-        })
-    }, [])
+    console.log('posts:', posts)
 
     return (
         <div>
