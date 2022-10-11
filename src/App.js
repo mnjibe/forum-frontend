@@ -6,46 +6,37 @@ import ViewPosts from './components/ViewPost';
 import CreatePost from './components/CreatePost';
 import SignIn from './components/SignIn';
 import './App.css';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import Button from '@mui/material/Button';
-import  AppBar  from '@mui/material/AppBar';
-import  Toolbar  from '@mui/material/Toolbar';
 import 'fontsource-roboto';
-import  Typography  from '@mui/material/Typography';
-import { makeStyles, ThemeProvider, createMUITheme} from '@mui/material/styles';
-import {blue} from '@mui/material/colors';
-import {white} from '@mui/material/colors';
-import  TextField  from '@mui/material/TextField';
-import  InputBase  from '@mui/material/InputBase';
-import  Input  from '@mui/material/Input';
-import  SearchIcon from '@mui/icons-material/Search';
-import Box from '@mui/material/Box';
-import  Stack  from '@mui/system/Stack';
+import Input from '@mui/material/Input';
+import SearchIcon from '@mui/icons-material/Search';
+import Posts from '../src/components/Posts'
 
-
-
-const SearchBar = (placeholder, onChange) => {
-
-  //this is a comment
-  return (
-    <div>
-      <SearchIcon /> 
-      <Input
-          placeholder={placeholder} 
-          onChange={onChange} 
-          />
-    </div>
-  )
-}
+const exPosts = [
+    { title: "test 1" },
+    { title: "test 2" },
+    { title: "test 3" }
+]
 
 function App() {
+    const [posts, setPosts] = React.useState(null)
 
-  return (
-      <div>  
-<Sidebar />
-<CreatePost />
-    </div>
+    React.useEffect(() => {
+        axios.get('http://localhost:6006/api/v1/posts').then(function(res) {
+            // console.log('res: ', res)
+            setPosts(res.data)
+        }).catch(function(err) {
+            console.log('err: ', err)
 
-  )
+        })
+    }, [])
+
+    console.log('posts: ! : !:', posts)
+
+    return (
+        <div>
+            <Posts posts={exPosts} />
+        </div>
+
+    )
 }
 export default App;
