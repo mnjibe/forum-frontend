@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import Counter from '../components/Counter'
+import axios from 'axios';
 import useState from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -31,6 +31,12 @@ import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp
 import  KeyboardDoubleArrowDownIcon  from '@mui/icons-material/KeyboardDoubleArrowDown';
 
 const drawerWidth = 240;
+
+axios.get('http://localhost:6006/api/v1/users').then(function(res) {
+        console.log('res: ', res)
+    }).catch(function(err) {
+        console.log('err: ', err)
+    })
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -140,50 +146,7 @@ inputProps={{ 'aria-label': 'search' }}
           </List>
         </Box>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <Toolbar />  
-        <Typography> 
-          <h1> Day Mode and Night Mode </h1> 
-                <p>Added: Today .......... Viewed: 6 times </p> 
-        </Typography> 
-        <Divider /> 
-        <Stack direction = 'row' spacing={3}> 
-              <Stack 
-                direction = "column"
-                spacing = {2}> 
-                <IconButton>
-                    <KeyboardDoubleArrowUpIcon color = 'primary'/>
-                </IconButton> 
-                <IconButton sx={{marginTop: '2px'}} > 
-                  <KeyboardDoubleArrowDownIcon color = 'primary'/>
-                </IconButton> 
-                </Stack> 
-              <Typography> 
-                <h6>        </h6>
-              </Typography>
-                <Typography> 
-          <p> 
-            I have tried to create the day mode and night with a check button, it's working well. 
-            The default mode is day mode but the problem is when I'm in night mode then refresh 
-            the page or go to the other pages on the site it will be back to day mode. The day 
-            and night modes I tried to make with a check button function well. Day mode is the 
-            default, however the issue arises when I go to night mode. the page or visit any 
-            other sites on the website, the mode will return to day.
-          </p>
-        </Typography> 
-      </Stack> 
-      </Box>  
-      </Box>  
-      <Divider /> 
-      <TextField
-          sx={{ marginTop: "20px" ,marginLeft: "300px" , width: '950px'}}
-          id="filled-multiline-static"
-          label = "Enter Answer Here..."
-          multiline
-          rows={8}
-          variant="filled"
-        /> 
-   
+      </Box> 
     </React.Fragment>
   );
 }

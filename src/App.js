@@ -1,6 +1,10 @@
-import Header from './components/Header'; 
+
+import * as React from 'react';
+import axios from 'axios';
 import Sidebar from './components/Sidebar';
-import Counter from './components/Counter'
+import ViewPosts from './components/ViewPost';
+import CreatePost from './components/CreatePost';
+import SignIn from './components/SignIn';
 import './App.css';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
@@ -18,7 +22,11 @@ import  SearchIcon from '@mui/icons-material/Search';
 import Box from '@mui/material/Box';
 import  Stack  from '@mui/system/Stack';
 
+
+
 const SearchBar = (placeholder, onChange) => {
+
+  //this is a comment
   return (
     <div>
       <SearchIcon /> 
@@ -31,18 +39,13 @@ const SearchBar = (placeholder, onChange) => {
 }
 
 function App() {
+
   return (
-      <div> 
-<Sidebar /> 
-<Button 
-      sx = {{marginLeft: "300px", marginTop: "15px"}}
-      variant = 'contained'
-      size = 'large'
-      color = 'primary'
-      >
-        Post Your Answer
-      </Button>
-      </div>
+      <div>  
+<Sidebar />
+<CreatePost />
+    </div>
+
   )
 }
 export default App;
