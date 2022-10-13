@@ -17,18 +17,18 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import HomeIcon from '@mui/icons-material/Home';
-import QuestionMark  from '@mui/icons-material/QuestionMark';
-import  TextField  from '@mui/material/TextField';
-import  SearchIcon from '@mui/icons-material/Search';
+import QuestionMark from '@mui/icons-material/QuestionMark';
+import TextField from '@mui/material/TextField';
+import SearchIcon from '@mui/icons-material/Search';
 import 'fontsource-roboto';
 import { styled, alpha } from '@mui/material/styles';
-import InputBase from '@mui/material/InputBase'; 
-import { Tab, Tabs, Button, ButtonGroup } from '@mui/material'; 
+import InputBase from '@mui/material/InputBase';
+import { Tab, Tabs, Button, ButtonGroup } from '@mui/material';
 import Fab from '@mui/material/Fab';
-import Stack from '@mui/material/Stack'; 
+import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
-import  KeyboardDoubleArrowDownIcon  from '@mui/icons-material/KeyboardDoubleArrowDown';
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 
 const drawerWidth = 240;
 
@@ -37,18 +37,18 @@ const Search = styled('div')(({ theme }) => ({
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.white, 0.15),
     '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
+        backgroundColor: alpha(theme.palette.common.white, 0.25),
     },
     marginRight: theme.spacing(2),
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
-      width: 'auto',
+        marginLeft: theme.spacing(3),
+        width: 'auto',
     },
-  })); 
+}));
 
-  const SearchIconWrapper = styled('div')(({ theme }) => ({
+const SearchIconWrapper = styled('div')(({ theme }) => ({
     padding: theme.spacing(0, 2),
     height: '100%',
     position: 'absolute',
@@ -56,93 +56,93 @@ const Search = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-  }));
+}));
 
-  const StyledInputBase = styled(InputBase)(({ theme }) => ({
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
     '& .MuiInputBase-input': {
-      padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create('width'),
-      width: '100%',
-      [theme.breakpoints.up('md')]: {
-        width: '20ch',
-      },
+        padding: theme.spacing(1, 1, 1, 0),
+        // vertical padding + font size from searchIcon
+        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+        transition: theme.transitions.create('width'),
+        width: '100%',
+        [theme.breakpoints.up('md')]: {
+            width: '20ch',
+        },
     },
-  }));
+}));
 
 
 
 
-function Sidebar() { 
+function Sidebar() {
     return (
-        <React.Fragment> 
-        <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, background: '#063970' }}>
-      <Toolbar> 
+        <React.Fragment>
+            <Box sx={{ display: 'flex' }}>
+                <CssBaseline />
+                <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, background: '#063970' }}>
+                    <Toolbar>
 
-<Typography sx= {{fontSize: '2rem' }} color = 'primary'> FSC Forum</Typography>
-<div> 
-<Search>
-<SearchIconWrapper>
-<SearchIcon />
-</SearchIconWrapper>
-<StyledInputBase
-placeholder="Search…"
-inputProps={{ 'aria-label': 'search' }}
-/>
-</Search>
+                        <Typography sx={{ fontSize: '2rem' }} color='primary'> FSC Forum</Typography>
+                        <div>
+                            <Search>
+                                <SearchIconWrapper>
+                                    <SearchIcon />
+                                </SearchIconWrapper>
+                                <StyledInputBase
+                                    placeholder="Search…"
+                                    inputProps={{ 'aria-label': 'search' }}
+                                />
+                            </Search>
 
 
-</div> 
-<InboxIcon sx={{marginLeft: '625px'}} />
-<ButtonGroup sx={{marginLeft: 'auto'}}> 
-    <Button 
-    variant = 'outlined'
-    size = 'small'
-    color = 'primary'
-    >  
-    Log In
-    </Button>
-    <Button 
-    variant = 'contained'
-    size = 'small'
-    color = 'primary'
-    >
-    Sign Up
-    </Button>
-</ButtonGroup>
-</Toolbar>
-      </AppBar>
-      <Drawer
-        variant="permanent"
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box', backgroundColor: '#808080' },
-        }}
-      >
-        <Toolbar />
-        <Box sx={{ overflow: 'auto' }}>
-        <List>
-            {['Home', 'Questions'].map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <HomeIcon /> : <QuestionMark />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-        </Box>
-      </Drawer>
-      </Box> 
-    </React.Fragment>
-  );
+                        </div>
+                        <InboxIcon sx={{ marginLeft: '625px' }} />
+                        <ButtonGroup sx={{ marginLeft: 'auto' }}>
+                            <Button
+                                variant='outlined'
+                                size='small'
+                                color='primary'
+                            >
+                                Log In
+                            </Button>
+                            <Button
+                                variant='contained'
+                                size='small'
+                                color='primary'
+                            >
+                                Sign Up
+                            </Button>
+                        </ButtonGroup>
+                    </Toolbar>
+                </AppBar>
+                <Drawer
+                    variant="permanent"
+                    sx={{
+                        width: drawerWidth,
+                        flexShrink: 0,
+                        [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box', backgroundColor: '#808080' },
+                    }}
+                >
+                    <Toolbar />
+                    <Box sx={{ overflow: 'auto' }}>
+                        <List>
+                            {['Home', 'Questions'].map((text, index) => (
+                                <ListItem key={text} disablePadding>
+                                    <ListItemButton>
+                                        <ListItemIcon>
+                                            {index % 2 === 0 ? <HomeIcon /> : <QuestionMark />}
+                                        </ListItemIcon>
+                                        <ListItemText primary={text} />
+                                    </ListItemButton>
+                                </ListItem>
+                            ))}
+                        </List>
+                    </Box>
+                </Drawer>
+            </Box>
+        </React.Fragment>
+    );
 }
 
 export default Sidebar;
