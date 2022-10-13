@@ -32,12 +32,6 @@ import  KeyboardDoubleArrowDownIcon  from '@mui/icons-material/KeyboardDoubleArr
 
 const drawerWidth = 240;
 
-axios.get('http://localhost:6006/api/v1/users').then(function(res) {
-        console.log('res: ', res)
-    }).catch(function(err) {
-        console.log('err: ', err)
-    })
-
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
