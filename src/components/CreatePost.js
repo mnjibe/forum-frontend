@@ -32,18 +32,20 @@ import  KeyboardDoubleArrowDownIcon  from '@mui/icons-material/KeyboardDoubleArr
 
 
 
-function CreatePost() {
-        const [title,setTitle] = useState('')
-        const [body,setBody] = useState('')
-        const postData = (e) => {
-          e.preventDefault();
-          axios.post('http://localhost:6006/api/v1/posts', {
-          title,
-          body
-        }).then(res => console.log("Posting:::  ", res))
-        .catch(err => console.log('err::  ', err))
 
-        }
+
+function CreatePost() {
+  
+  /*const [title,setTitle] = useState('')
+  const [body,setBody] = useState('')
+  const postData = (e) => {
+  e.preventDefault();
+  axios.post('http://localhost:6006/api/v1/posts', {
+  title,
+  body
+}).then(res => console.log("Posting:::  ", res))
+.catch(err => console.log('err::  ', err))
+*/
 
     return(
         <Box component="main" 
@@ -60,15 +62,15 @@ function CreatePost() {
                 <h4> Be specific and imagine you're asking a question to another person</h4>
             </Typography>
             <TextField 
-            onChange={(e) => setTitle(e.target.value)}
-            id="outlined-basic" variant="outlined" placeholder='e.g. Is there a way to switch to Night Mode' />
+           //onChange={(e) => setTitle(e.target.value)}
+            id="outlined-basic" variant="outlined" fullWidth placeholder='e.g. Is there a way to switch to Night Mode' />
             <Typography> 
                 <h3> Body</h3>
                 <h4> Include all information needed to answer the question</h4>
             </Typography>
         </form>
             <TextField
-            onChange={(e) => setBody(e.target.value)}
+          //  onChange={(e) => setBody(e.target.value)}
             sx={{ marginTop: "20px", marginLeft: "0px", width: '950px' }}
             id="filled-multiline-static"
             label="Enter Answer Here..."
@@ -77,7 +79,7 @@ function CreatePost() {
             variant="filled" /> 
         </Stack> 
         <Button 
-        onClick={postData}
+       // onClick={postData}
         sx={{marginTop: "15px"}}
         variant = 'contained'
         size = 'large'

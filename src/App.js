@@ -11,15 +11,15 @@ import 'fontsource-roboto';
 import Input from '@mui/material/Input';
 import SearchIcon from '@mui/icons-material/Search';
 import Posts from '../src/components/Posts'
+import { useAutocomplete } from '@mui/material';
 
 function App() {
-    
     return (
     <div>
 
 
-        <Sidebar /> 
-        <CreatePost />
+<Sidebar /> 
+<CreatePost />
 
 
     </div>
