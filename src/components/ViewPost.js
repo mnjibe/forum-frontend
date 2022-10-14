@@ -32,13 +32,13 @@ import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrow
 
 import Posts from '../components/Posts'
 
-function ViewPosts() {
+function ViewPosts(props) {
     return (
         <><Box component="main"
             sx={{ flexGrow: 1, p: 3, marginLeft: "300px", marginTop: "-40px" }}>
             <Toolbar />
             <Typography>
-                <h1> Day Mode and Night Mode </h1>
+                <h1> {props.title} </h1>
                 <p>Added: Today ..........Viewed: 6 times </p>
             </Typography>
             <Divider />
