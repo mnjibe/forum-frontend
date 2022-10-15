@@ -1,7 +1,7 @@
 import * as React from 'react';
 import axios from 'axios';
 import Counter from './ViewPost'
-import useState from 'react';
+import { useEffect,useState}  from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -67,8 +67,29 @@ const exPosts = [
 
 
 
-function CreatePost() {
+const CreatePost = () => {
+  const [data, setPosts] = React.useState([])
 
+  const [title,setTitle] = useState('')
+  const [body,setBody] = useState('')
+ 
+React.useEffect (() => {
+  axios.get('https://forum-backend-production.up.railway.app/api/v1/posts')
+        .then(res=> {
+            console.log('Pulling From::  ', res.data.data)
+            setPosts(res.data.data)})
+        .catch(err => console.log('err::  ', err))
+
+    }, [])
+  const postData = (e) => {
+    e.preventDefault();
+    axios.post('https://forum-backend-production.up.railway.app/api/v1/posts', {
+    title,
+    body,
+    user: "6349f49c195a4e2673f69321"
+  }).then(res => console.log("Posting:::  ", res.data.data))
+  .catch(err => console.log('err::  ', err)) 
+}
     return(
         <Box component="main" 
         sx={{ flexGrow: 1, p: 3, marginLeft: "300px",marginTop:"-40px" }}>
@@ -84,7 +105,9 @@ function CreatePost() {
             </Typography>
             <form noValidate> 
             <TextField 
-            id="outlined-basic" variant="outlined" fullWidth placeholder='e.g. Is there a way to switch to Night Mode' />
+            id="outlined-basic" variant="outlined" fullWidth placeholder='e.g. Is there a way to switch to Night Mode'
+            value = {title}
+            onChange={(e) => setTitle(e.target.value)} />
             <Typography> 
                 <h3> Body</h3>
                 <h4> Include all information needed to answer the question</h4>
@@ -97,7 +120,9 @@ function CreatePost() {
             label="Enter Answer Here..."
             multiline
             rows={8}
-            variant="filled" /> 
+            variant="filled"
+            value = {body}
+            onChange={(e) => setBody(e.target.value)} /> 
           </form>
         </Stack> 
         <Button 
@@ -105,6 +130,7 @@ function CreatePost() {
         variant = 'contained'
         size = 'large'
         color = 'primary'
+        onClick={postData}
       >
         Post Your Question
       </Button> 

@@ -1,22 +1,5 @@
-
-import * as React from 'react';
-import { useState,useEffect } from 'react';
-import axios from 'axios';
-import Sidebar from './components/Sidebar';
-import ViewPosts from './components/ViewPost';
-import CreatePost from './components/CreatePost';
-import SignIn from './components/SignIn';
-import DisplayPosts from './components/DisplayPosts';
-import './App.css';
-import 'fontsource-roboto';
-import Input from '@mui/material/Input';
-import SearchIcon from '@mui/icons-material/Search';
-import Posts from '../src/components/Posts'
-import { useAutocomplete } from '@mui/material';
-import Mock from './data/Mock.json'
-import PostPreview from './components/PostPreview'
-
-const exPosts = [
+[ 
+    
     {
         "id":1,
         "title":"habitasse platea dictumst aliquam augue quam sollicitudin vitae consectetuer eget rutrum at lorem integer tincidunt ante vel ipsum praesent blandit",
@@ -46,17 +29,35 @@ const exPosts = [
     "title":"turpis sed ante vivamus tortor duis mattis egestas metus aenean fermentum donec ut mauris eget",
     "body":"Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis. Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem."
 },
+{
     
-]
+    "id":6,
+    "title":"sed ante vivamus tortor duis mattis egestas metus aenean fermentum donec",
+    "body":"Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis. Sed ante."
+},
+{
+    
+    "id":7,
+    "title":"donec dapibus duis at velit eu est congue elementum in hac habitasse",
+    "body":"In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem. Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat. Praesent blandit."
+},
+{
+    
+    "id":8,
+    "title":"justo sollicitudin ut suscipit a feugiat et eros vestibulum ac est lacinia nisi venenatis tristique fusce congue diam",
+    "body":"Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem."
+},
+{
+    
+    "id":9,
+    "title":"in faucibus orci luctus et ultrices posuere cubilia curae mauris viverra diam vitae quam suspendisse potenti nullam porttitor",
+    "body":"Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque. Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla."
+},
+{
+    
+    "id":10,
+    "title":"sit amet turpis elementum ligula vehicula consequat morbi a ipsum integer a nibh in quis justo maecenas rhoncus aliquam lacus",
+    "body":"Integer ac neque. Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus. In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus. Suspendisse potenti. In eleifend quam a odio."
+}
 
-
-function App() {
-   
-    return (
-<div> 
-    <Sidebar />
-    <CreatePost />
-</div>  
-    )
-     }
-    export default App;
+] 
