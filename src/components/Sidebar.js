@@ -29,6 +29,7 @@ import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -75,7 +76,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 
-function Sidebar() {
+function Sidebar() { 
+    const [goToQuestions,setGoToQuestions] = React.useState(false); 
+    if (goToQuestions(true)) {
+        return <Navigate to='/allquestions'/>;
+    }
     return (
         <React.Fragment>
             <Box sx={{ display: 'flex' }}>
