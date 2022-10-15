@@ -32,7 +32,8 @@ import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrow
 
 import Posts from '../components/Posts'
 
-function ViewPosts(props) {
+function ViewPosts(props) { 
+
     return (
         <><Box component="main"
             sx={{ flexGrow: 1, p: 3, marginLeft: "300px", marginTop: "-40px" }}>
@@ -58,12 +59,7 @@ function ViewPosts(props) {
                 </Typography>
                 <Typography>
                     <p>
-                        I have tried to create the day mode and night with a check button, it's working well.
-                        The default mode is day mode but the problem is when I'm in night mode then refresh
-                        the page or go to the other pages on the site it will be back to day mode. The day
-                        and night modes I tried to make with a check button function well. Day mode is the
-                        default, however the issue arises when I go to night mode. the page or visit any
-                        other sites on the website, the mode will return to day.
+                        {props.body}
                     </p>
                 </Typography>
             </Stack>
