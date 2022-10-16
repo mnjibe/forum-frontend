@@ -44,7 +44,7 @@ const CreatePost = () => {
   const [body,setBody] = useState('')
  
 React.useEffect (() => {
-  axios.get('http://localhost:6006/api/v1/posts')
+  axios.get(`${URL}/api/v1/posts`)
         .then(res=> {
             console.log('Pulling From::  ', res.data.data)
             setPosts(res.data.data)})
@@ -53,7 +53,7 @@ React.useEffect (() => {
     }, [])
   const postData = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:6006/api/v1/posts', {
+    axios.post(`${URL}/api/v1/posts`, {
     title,
     body,
     user: "6349f49c195a4e2673f69321"
@@ -79,7 +79,7 @@ const navigate = useNavigate();
                 <h3>Title </h3>
                 <h4> Be specific and imagine you're asking a question to another person</h4>
             </Typography>
-            <form noValidate> 
+            <form noValidate onSubmit={handleSubmit}> 
             <TextField 
             id="outlined-basic" variant="outlined" fullWidth placeholder='e.g. Is there a way to switch to Night Mode'
             value = {title}
@@ -108,6 +108,17 @@ const navigate = useNavigate();
       >
         Post Your Question
       </Button> 
+      <Button 
+      sx={{marginTop: "15px"}}
+      variant = 'contained'
+      size = 'large'
+      color = 'secondary'
+      onClick={() => {
+        navigate("/allquestions");
+      }}> 
+      Return To All Questions
+      
+      </Button>
         </Box>
     )
 }

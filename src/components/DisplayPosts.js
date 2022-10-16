@@ -4,15 +4,16 @@ import 'fontsource-roboto';
 import Input from '@mui/material/Input';
 import SearchIcon from '@mui/icons-material/Search';
 import Mock from '../data/Mock.json'
-import { Typography, Toolbar, Box, Stack, Divider } from '@mui/material';
+import { Typography, Toolbar, Box, Stack, Divider, Button } from '@mui/material';
 import { useEffect,useState}  from 'react';
 import {Link} from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const DisplayPosts = () => { 
         const [data, setPosts] = React.useState([])
 
       React.useEffect (() => {
-        axios.get('http://localhost:6006/api/v1/posts')
+        axios.get(`${URL}/api/v1/posts`)
               .then(res=> {
                   console.log('Pulling From::  ', res.data.data)
                   setPosts(res.data.data)})
@@ -32,6 +33,7 @@ const DisplayPosts = () => {
               </tr>
             )
           })
+          const navigate = useNavigate()
     return (
         <Box component="main" 
         sx={{ flexGrow: 1, p: 3, marginLeft: "300px",marginTop:"-40px" }}>
@@ -40,6 +42,16 @@ const DisplayPosts = () => {
                 <Typography> 
                    <h1> All Questions </h1> 
                 </Typography>
+                <Button
+                sx={{}}
+                variant = 'outlined'
+                size = 'medium'
+                color = 'secondary'
+                onClick={() => {
+                    navigate("/")
+                }}>
+                    Ask New Question
+                </Button>
                 <Divider /> 
                 <Typography>
                 <table>
