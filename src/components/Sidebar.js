@@ -77,10 +77,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 function Sidebar() { 
-    const [goToQuestions,setGoToQuestions] = React.useState(false); 
-    if (goToQuestions(true)) {
-        return <Navigate to='/allquestions'/>;
-    }
+    const navigate = useNavigate
+ 
     return (
         <React.Fragment>
             <Box sx={{ display: 'flex' }}>
@@ -134,7 +132,9 @@ function Sidebar() {
                         <List>
                             {['Home', 'Questions'].map((text, index) => (
                                 <ListItem key={text} disablePadding>
-                                    <ListItemButton>
+                                    <ListItemButton onClick={() => {
+                                        navigate("/allquestions");
+                                    }}>
                                         <ListItemIcon>
                                             {index % 2 === 0 ? <HomeIcon /> : <QuestionMark />}
                                         </ListItemIcon>

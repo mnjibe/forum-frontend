@@ -13,7 +13,7 @@ const DisplayPosts = () => {
         const [data, setPosts] = React.useState([])
 
       React.useEffect (() => {
-        axios.get(`${URL}/api/v1/posts`)
+        axios.get('https://forum-backend-production.up.railway.app/api/v1/posts')
               .then(res=> {
                   console.log('Pulling From::  ', res.data.data)
                   setPosts(res.data.data)})

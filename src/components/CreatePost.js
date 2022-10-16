@@ -43,7 +43,7 @@ const CreatePost = () => {
   const [title,setTitle] = useState('')
   const [body,setBody] = useState('')
 React.useEffect (() => {
-  axios.get(`${URL}/api/v1/posts`)
+  axios.get('https://forum-backend-production.up.railway.app/api/v1/posts')
         .then(res=> {
             console.log('Pulling From::  ', res.data.data)
             setPosts(res.data.data)})
@@ -52,7 +52,7 @@ React.useEffect (() => {
     }, [])
   const postData = (e) => {
     e.preventDefault();
-    axios.post(`${URL}/api/v1/posts`, {
+    axios.post('https://forum-backend-production.up.railway.app/api/v1/posts', {
     title,
     body,
     user: "6349f49c195a4e2673f69321"
