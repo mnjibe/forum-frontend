@@ -42,7 +42,6 @@ const CreatePost = () => {
 
   const [title,setTitle] = useState('')
   const [body,setBody] = useState('')
- 
 React.useEffect (() => {
   axios.get(`${URL}/api/v1/posts`)
         .then(res=> {
