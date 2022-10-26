@@ -17,6 +17,7 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import HomeIcon from '@mui/icons-material/Home';
+import PersonIcon from '@mui/icons-material/Person';
 import QuestionMark from '@mui/icons-material/QuestionMark';
 import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
@@ -29,7 +30,7 @@ import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate, Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -77,7 +78,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 function Sidebar() { 
-    const navigate = useNavigate
+    
  
     return (
         <React.Fragment>
@@ -129,20 +130,24 @@ function Sidebar() {
                 >
                     <Toolbar />
                     <Box sx={{ overflow: 'auto' }}>
-                        <List>
-                            {['Home', 'Questions'].map((text, index) => (
-                                <ListItem key={text} disablePadding>
-                                    <ListItemButton onClick={() => {
-                                        navigate("/allquestions");
-                                    }}>
-                                        <ListItemIcon>
-                                            {index % 2 === 0 ? <HomeIcon /> : <QuestionMark />}
-                                        </ListItemIcon>
-                                        <ListItemText primary={text} />
-                                    </ListItemButton>
-                                </ListItem>
-                            ))}
-                        </List>
+        <ListItemButton component = "a" href='/'>
+        <ListItemIcon>
+          <HomeIcon />
+        </ListItemIcon>
+        <ListItemText primary="Home" />
+      </ListItemButton>
+      <ListItemButton component = "a" href='/allquestions'>
+        <ListItemIcon>
+          <QuestionMark />
+        </ListItemIcon>
+        <ListItemText primary="Questions" />
+      </ListItemButton>
+      <ListItemButton component = "a" href='/users'>
+        <ListItemIcon>
+          <PersonIcon />
+        </ListItemIcon>
+        <ListItemText primary="Users" />
+      </ListItemButton>
                     </Box>
                 </Drawer>
             </Box>
@@ -151,3 +156,4 @@ function Sidebar() {
 }
 
 export default Sidebar;
+

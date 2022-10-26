@@ -1,68 +1,71 @@
-import * as React from 'react';
-import axios from 'axios';
-import 'fontsource-roboto';
-import Input from '@mui/material/Input';
-import SearchIcon from '@mui/icons-material/Search';
-import Mock from '../data/Mock.json'
-import { Typography, Toolbar, Box, Stack, Divider, Button } from '@mui/material';
-import { useEffect,useState}  from 'react';
-import {Link} from 'react-router-dom'
-import { Navigate, useNavigate } from 'react-router-dom';
+import * as React from "react";
+import { Component } from "react";
+import axios from "axios";
+import "fontsource-roboto";
+import Input from "@mui/material/Input";
+import SearchIcon from "@mui/icons-material/Search";
+import Mock from "../data/Mock.json";
+import {
+  Typography,
+  Toolbar,
+  Box,
+  Stack,
+  Divider,
+  Button,
+} from "@mui/material";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import Posts from "../components/Posts";
+import ViewPosts from "./ViewPost";
 
-const DisplayPosts = () => { 
-        const [data, setPosts] = React.useState([])
+export default class DisplayPosts extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      posts: [],
+      selectedPostId: null,
+    };
+  }
+  componentDidMount() {
+    axios
+      .get("http://localhost:6006/api/v1/posts")
+      .then((res) => {
+        const posts = [];
+        for (let key in res.data.data) {
+          posts.push({ ...res.data.data[key], id: key });
+        }
+        this.setState({
+          posts: posts,
+        });
+        console.log("Pulling From::  ", res.data.data);
+      })
+      .catch((err) => console.log("err::  ", err));
+  }
 
-      React.useEffect (() => {
-        axios.get('https://forum-backend-production.up.railway.app/api/v1/posts')
-              .then(res=> {
-                  console.log('Pulling From::  ', res.data.data)
-                  setPosts(res.data.data)})
-              .catch(err => console.log('err::  ', err))
-      
-          }, []) 
-          const arr = data.map((data,index) => {
-            return (
-                <tr>
-                <td>
 
-                    <h3> 
-                        <Link> {data.title} </Link> 
-                    </h3> 
-                    
-                </td>
-              </tr>
-            )
-          })
-          const navigate = useNavigate()
+  render() {
+    const posts = this.state.posts.map((post) => {
+      return <Posts key={post._id} post={post} />;
+    });
     return (
-        <Box component="main" 
-        sx={{ flexGrow: 1, p: 3, marginLeft: "300px",marginTop:"-40px" }}>
-            <Toolbar />
-            <Stack spacing={2}> 
-                <Typography> 
-                   <h1> All Questions </h1> 
-                </Typography>
-                <Button
-                sx={{}}
-                variant = 'outlined'
-                size = 'medium'
-                color = 'secondary'
-                onClick={() => {
-                    navigate("/")
-                }}>
-                    Ask New Question
-                </Button>
-                <Divider /> 
-                <Typography>
-                <table>
-                    <tr> 
-                        <th></th>
-                    </tr>
-                    {arr}
-                </table>
-                </Typography> 
-            </Stack>
-        </Box> 
-    )
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, p: 3, marginLeft: "300px", marginTop: "-40px" }}
+      >
+        <Toolbar />
+        <Stack spacing={2}>
+          <Typography>
+            <h1> All Questions </h1>
+          </Typography>
+          <Button sx={{}} variant="outlined" size="medium" color="secondary" 
+          >
+            Ask New Question
+          </Button>
+          <Divider />
+          <div>{posts}</div>
+        </Stack>
+      </Box>
+    );
+  }
 }
-    export default DisplayPosts;

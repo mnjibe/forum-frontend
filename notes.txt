@@ -1,0 +1,3 @@
+- use functions not classes
+- check the date of all tutorials and make sure they're not old
+- don't mix solutions half mui/have css files or half router/half random refs

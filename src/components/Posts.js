@@ -1,13 +1,10 @@
-const Posts = (props) => {
-    return (
-        <div>
-            {props.//access props
-                posts. //access prop named post
-                map(post => //for each item (we referred to them as post) in the array
-                <h1>{post.title}</h1>)//return a h1 element displaying the title field of the item
-            }
-        </div>
-    )
-}
+import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
 
-export default Posts;
+export default function Posts(props) {
+  return (
+    <Link to={`/view/${props.post._id}`}>
+      <div> {props.post.title} </div>
+    </Link>
+  );
+}

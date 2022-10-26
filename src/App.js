@@ -1,4 +1,5 @@
 
+
 import * as React from 'react';
 import { useState,useEffect } from 'react';
 import axios from 'axios';
@@ -7,6 +8,7 @@ import ViewPosts from './components/ViewPost';
 import CreatePost from './components/CreatePost';
 import SignIn from './components/SignIn';
 import DisplayPosts from './components/DisplayPosts';
+import DisplayUsers from './components/DisplayUsers';
 import './App.css';
 import 'fontsource-roboto';
 import Input from '@mui/material/Input';
@@ -25,9 +27,11 @@ function App() {
     <Sidebar />
 <Router> 
     <Routes> 
-        <Route path='/' element={<CreatePost />} />
+        <Route path='/' element={<DisplayPosts />} />
         <Route path='/allquestions' element={<DisplayPosts />} />
-        <Route path='/view' element={<ViewPosts />} />
+        <Route path='/view/:id' element={<ViewPosts />} />
+        <Route path='/create' element={<CreatePost />} />
+        <Route path='/users'element={<DisplayUsers />} />
     </Routes>
 </Router>
 </div>
