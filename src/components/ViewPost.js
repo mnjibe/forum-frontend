@@ -1,49 +1,77 @@
 import * as React from "react";
-import { Component } from "react";
 import axios from "axios";
-import Counter from "./ViewPost";
-import useState from "react";
+import jwt_decode from "jwt-decode";
+import { axiosInstance as authentication } from "../service/axios";
+import DEBUTTON from "./DEButton";
 import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import CssBaseline from "@mui/material/CssBaseline";
-import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-import HomeIcon from "@mui/icons-material/Home";
-import QuestionMark from "@mui/icons-material/QuestionMark";
 import TextField from "@mui/material/TextField";
-import SearchIcon from "@mui/icons-material/Search";
 import "fontsource-roboto";
-import { styled, alpha } from "@mui/material/styles";
-import InputBase from "@mui/material/InputBase";
 import { Tab, Tabs, Button, ButtonGroup } from "@mui/material";
-import Fab from "@mui/material/Fab";
 import Stack from "@mui/material/Stack";
 import IconButton from "@mui/material/IconButton";
 import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
-import Posts from "../components/Posts";
-import DisplayPosts from "./DisplayPosts";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams, Route, Routes } from "react-router-dom";
+import EditPost from "./EditPost";
 
-const ViewPosts = () => {
-  const { id } = useParams();
-  const [data, setData] = React.useState([]);
-  axios
+const ViewPosts = () => { 
+  const navigate = useNavigate();
+  const { id } = useParams(); 
+  React.useEffect(() => {
+    axios
     .get(`http://localhost:6006/api/v1/posts/${id}`)
     .then((res) => {
       setData(res.data.data);
+      console.log("Pulling::: " , res.data.data)
     })
     .catch((err) => console.log("err::  ", err));
+    
+  }, [])
+  const [comments, setComments] = React.useState("")
+  React.useEffect(() => {
+    axios
+    .get(`http://localhost:6006/api/v1/posts/${id}/comments`)
+    .then((res) => {
+      console.log("Pulling Comments::: " , res.data.data)
+      setComments(res.data.data);
+    })
+    .catch((err) => console.log("err::  ", err));
+    
+  }, [])
+  const [data, setData] = React.useState([]);
+  const [text, setText] = React.useState("");
+  const postComment = (e) => {
+    e.preventDefault();
+    authentication
+      .post(`http://localhost:6006/api/v1/posts/${id}/comments`, {
+        text,
+      })
+      .then((res) => { 
+        console.log("Posting:::  ", res.data.data);
+      })
+      .catch((err) => console.log("err::  ", err));
+  };
+  const deletePost = ()=> {
+    authentication.delete(`http://localhost:6006/api/v1/posts/${id}`)
+    console.log("DELETING")
+    navigate("/allquestions")
+}
+const editPost = ()=> {
+      <Routes> 
+        <Route path="/editpost" component = {<EditPost post = {data} />} /> 
+      </Routes> 
+      navigate("/editpost")
+}
+  var token = localStorage.getItem("token");
+  var decoded = jwt_decode(token);
+  var decodedHeader = jwt_decode(token, { header: true });
+  console.log("User::: " , decoded); 
 
+  const authUser = !!(decoded.id === data.user)
+  console.log("AUTHUSER:::", authUser)
   return (
     <div>
       <>
@@ -54,7 +82,7 @@ const ViewPosts = () => {
           <Toolbar />
           <Typography>
             <h1> {data.title} </h1>
-            <p>Added: Today ..........Viewed: -- times </p>
+            <p>Added: Today ..........Viewed: -- times </p> 
           </Typography>
           <Divider />
           <Stack direction="row" spacing={3}>
@@ -73,7 +101,13 @@ const ViewPosts = () => {
               <p>{data.body}</p>
             </Typography>
           </Stack>
-          <Divider />
+          <Divider /> 
+          {authUser ? 
+          <div>
+          <Button variant = "body2" onClick = {deletePost}> Delete </Button>
+          <Button variant = "body2" onClick={editPost}>  Edit </Button>
+          </div>
+           : null} 
           <TextField
             sx={{ marginTop: "20px", marginLeft: "0px", width: "950px" }}
             id="filled-multiline-static"
@@ -81,6 +115,8 @@ const ViewPosts = () => {
             multiline
             rows={8}
             variant="filled"
+            value = {text}
+            onChange={(e) => setText(e.target.value)}
           />
 
           <Button
@@ -88,6 +124,7 @@ const ViewPosts = () => {
             variant="contained"
             size="large"
             color="primary"
+            onClick={postComment}
           >
             Post Your Answer
           </Button>

@@ -1,39 +1,41 @@
 import * as React from 'react';
+import {useState, useEffect}  from 'react';
 import axios from 'axios';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
+import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import { useState, useEffect } from 'react';
+import Container from '@mui/material/Container'; 
 import { Navigate, useNavigate } from 'react-router-dom';
+import { Stack } from '@mui/system';
 
+export default function SignUp() { 
 
-export default function SignIn() { 
-  const navigate = useNavigate();
-  
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const postData = (e) => {
+    const navigate = useNavigate();
+    const [name, setUserName] = useState("");  
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const register = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:6006/api/v1/auth/login", {
+      .post("http://localhost:6006/api/v1/auth/register", {
+        name,
         email,
         password,
       })
       .then((res) => { 
         console.log("Posting:::  ", res.data);
-        localStorage.setItem("token", res.data.token);
         navigate(`/userpage`);
       })
       .catch((err) => console.log("err::  ", err));
   };
-
-  return (
-      <Box
+    return (
+     <Box
       component="main"
       sx={{ flexGrow: 1, p: 3, marginLeft: "300px", marginTop: "0px" }}
     >
@@ -50,9 +52,19 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign Up
           </Typography>
-          <Box component="form" noValidate sx={{ mt: 1 }}>
+          <Box component="form" noValidate sx={{ mt: 1 }}> 
+            <TextField 
+            margin="normal"
+            required
+            fullWidth
+            label="User Name"
+            name="username"
+            autoFocus
+            value={name}
+          onChange={(e) => setUserName(e.target.value)}
+          />
             <TextField
               margin="normal"
               required
@@ -83,25 +95,17 @@ export default function SignIn() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={postData}
+              onClick={register}
             >
-              Sign In
+              Sign Up
             </Button>
             <Grid container>
               <Grid item xs>
                 <Button variant="body2"
                 onClick={()=> { 
-                  navigate("/reset")
+                  navigate("/signin")
                 }}>
-                  Forgot password?
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button  variant="body2" 
-                onClick={() => {
-                  navigate("/signup")
-                }}>
-                  {"Don't have an account? Sign Up"}
+                  Already Have an Account? Sign In 
                 </Button>
               </Grid>
             </Grid>

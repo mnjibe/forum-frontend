@@ -16,18 +16,15 @@ export default function SignIn() {
   const navigate = useNavigate();
   
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const postData = (e) => {
+  const resetPW = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:6006/api/v1/auth/login", {
+      .post("http://localhost:6006/api/v1/auth/forgotpassword", {
         email,
-        password,
       })
       .then((res) => { 
         console.log("Posting:::  ", res.data);
-        localStorage.setItem("token", res.data.token);
-        navigate(`/userpage`);
+        navigate("/checkemail")
       })
       .catch((err) => console.log("err::  ", err));
   };
@@ -50,9 +47,12 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Reset Password
           </Typography>
           <Box component="form" noValidate sx={{ mt: 1 }}>
+            <Typography> 
+                Enter Email Associated With Your account
+            </Typography>
             <TextField
               margin="normal"
               required
@@ -65,36 +65,17 @@ export default function SignIn() {
               value={email}
             onChange={(e) => setEmail(e.target.value)}
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={postData}
+              onClick={resetPW}
             >
-              Sign In
+              Send Reset Email
             </Button>
             <Grid container>
               <Grid item xs>
-                <Button variant="body2"
-                onClick={()=> { 
-                  navigate("/reset")
-                }}>
-                  Forgot password?
-                </Button>
               </Grid>
               <Grid item>
                 <Button  variant="body2" 

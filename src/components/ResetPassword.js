@@ -1,5 +1,6 @@
-import * as React from 'react';
-import axios from 'axios';
+import * as React from "react";
+import axios from "axios";
+import { BrowserRouter as Router, Route, Routes, useLocation, useParams, useNavigate } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -9,31 +10,40 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { useState, useEffect } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
 
 
-export default function SignIn() { 
-  const navigate = useNavigate();
-  
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const postData = (e) => {
-    e.preventDefault();
+
+const ResetPassword = () => {
+    const params = useParams();
+    const { id } = params;
+    const navigate = useNavigate(); 
+    const [password, setPassword] = useState("");
+    const changePW = (e) => {
+        e.preventDefault();
     axios
-      .post("http://localhost:6006/api/v1/auth/login", {
-        email,
+      .post("http://localhost:6006/api/v1/auth/resetpassword/", {
         password,
       })
       .then((res) => { 
         console.log("Posting:::  ", res.data);
         localStorage.setItem("token", res.data.token);
-        navigate(`/userpage`);
       })
       .catch((err) => console.log("err::  ", err));
-  };
+    }
 
-  return (
-      <Box
+    useEffect(() => {
+        if (!id) {
+            navigate("/signup")
+        } else {
+            // Validate the id - call the server to check that this id is valid and that the user initiated it 
+            
+            // if valid, do nothing, otherwise you send user away 
+
+        }
+    }, []);
+    return (
+        <>
+       <Box
       component="main"
       sx={{ flexGrow: 1, p: 3, marginLeft: "300px", marginTop: "0px" }}
     >
@@ -50,51 +60,35 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Reset Password
           </Typography>
           <Box component="form" noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            />
+            <Typography> 
+                Enter New Password 
+            </Typography>
             <TextField
               margin="normal"
               required
               fullWidth
               name="password"
-              label="Password"
+              label="New Password"
               type="password"
               id="password"
               autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={postData}
+              onClick={changePW}
             >
-              Sign In
+              Reset Password
             </Button>
             <Grid container>
               <Grid item xs>
-                <Button variant="body2"
-                onClick={()=> { 
-                  navigate("/reset")
-                }}>
-                  Forgot password?
-                </Button>
               </Grid>
               <Grid item>
                 <Button  variant="body2" 
@@ -108,5 +102,7 @@ export default function SignIn() {
           </Box>
         </Box>
       </Box>
-  );
-}
+        </>
+    )
+} 
+export default ResetPassword;

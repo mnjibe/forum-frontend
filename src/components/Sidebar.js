@@ -1,35 +1,24 @@
 
 import * as React from 'react';
-import axios from 'axios';
-import useState from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
 import QuestionMark from '@mui/icons-material/QuestionMark';
-import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import IconButton from '@mui/material/IconButton';
 import 'fontsource-roboto';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
-import { Tab, Tabs, Button, ButtonGroup } from '@mui/material';
-import Fab from '@mui/material/Fab';
-import Stack from '@mui/material/Stack';
-import IconButton from '@mui/material/IconButton';
-import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
-import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
+import {Button, ButtonGroup } from '@mui/material';
 import { Navigate, useNavigate, Link } from 'react-router-dom';
 
 const drawerWidth = 240;
@@ -77,11 +66,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 
-function Sidebar() { 
-    
- 
+const Sidebar = () => { 
+    const isLoggedIn = !!localStorage.getItem("token"); 
+    const logOut = () => {
+        localStorage.removeItem("token")
+    }
+
     return (
-        <React.Fragment>
             <Box sx={{ display: 'flex' }}>
                 <CssBaseline />
                 <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, background: '#063970' }}>
@@ -101,22 +92,35 @@ function Sidebar() {
 
 
                         </div>
-                        <InboxIcon sx={{ marginLeft: '625px' }} />
-                        <ButtonGroup sx={{ marginLeft: 'auto' }}>
+                        <IconButton 
+                        sx={{marginLeft: '615px'}}
+                        component = "a"
+                        href = "/userpage" > 
+                            <AccountBoxIcon 
+                               size = "large"
+                               />
+                        </IconButton>
+
+                        <ButtonGroup sx={{ marginLeft: 'auto' }}> 
                             <Button
                                 variant='outlined'
                                 size='small'
                                 color='primary'
+                                component = "a"
+                                href = "/signin"
+                                onClick = {logOut}
                             >
-                                Log In
+                                {isLoggedIn ? "Logout" : "Log In"}
                             </Button>
-                            <Button
+                            {!isLoggedIn && <Button
                                 variant='contained'
                                 size='small'
                                 color='primary'
+                                component = "a"
+                                href = "/signup"
                             >
                                 Sign Up
-                            </Button>
+                            </Button>}
                         </ButtonGroup>
                     </Toolbar>
                 </AppBar>
@@ -151,7 +155,6 @@ function Sidebar() {
                     </Box>
                 </Drawer>
             </Box>
-        </React.Fragment>
     );
 }
 

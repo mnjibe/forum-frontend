@@ -2,9 +2,6 @@ import * as React from "react";
 import { Component } from "react";
 import axios from "axios";
 import "fontsource-roboto";
-import Input from "@mui/material/Input";
-import SearchIcon from "@mui/icons-material/Search";
-import Mock from "../data/Mock.json";
 import {
   Typography,
   Toolbar,
@@ -29,7 +26,7 @@ export default class DisplayPosts extends Component {
   }
   componentDidMount() {
     axios
-      .get("http://localhost:6006/api/v1/posts")
+      .get(`${process.env.REACT_APP_URL}/api/v1/posts`)
       .then((res) => {
         const posts = [];
         for (let key in res.data.data) {
@@ -57,13 +54,18 @@ export default class DisplayPosts extends Component {
         <Stack spacing={2}>
           <Typography>
             <h1> All Questions </h1>
-          </Typography>
-          <Button sx={{}} variant="outlined" size="medium" color="secondary" 
-          >
+          </Typography> 
+          <Button 
+          variant = "contained"
+          component = "a"
+          href = "/create">
             Ask New Question
           </Button>
+
           <Divider />
-          <div>{posts}</div>
+                <div>
+                     {posts}
+                </div>
         </Stack>
       </Box>
     );
