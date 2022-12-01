@@ -21,8 +21,9 @@ const ResetPassword = () => {
     const changePW = (e) => {
         e.preventDefault();
     axios
-      .post("http://localhost:6006/api/v1/auth/resetpassword/", {
+      .put(`${process.env.REACT_APP_URL}/api/v1/auth/resetpassword/`, {
         password,
+        token,
       })
       .then((res) => { 
         console.log("Posting:::  ", res.data);
@@ -33,7 +34,7 @@ const ResetPassword = () => {
 
     useEffect(() => {
         if (!id) {
-            navigate("/signup")
+           // navigate("/signup")
         } else {
             // Validate the id - call the server to check that this id is valid and that the user initiated it 
             
@@ -66,6 +67,16 @@ const ResetPassword = () => {
             <Typography> 
                 Enter New Password 
             </Typography>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="token"
+              label="Enter Token"
+              autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
             <TextField
               margin="normal"
               required
