@@ -31,6 +31,7 @@ export default function SignUp() {
       .then((res) => { 
         console.log("Posting:::  ", res.data);
         navigate(`/userpage`);
+        localStorage.setItem("token");
         window.location.reload();
       })
       .catch((err) => console.log("err::  ", err));
