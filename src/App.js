@@ -33,7 +33,7 @@ function App() {
 
       <Router>
         <Routes>
-          <Route path="/" element={<CheckEmail />} />
+          <Route path="/" element={<DisplayPosts />} />
           <Route path="/allquestions" element={<DisplayPosts />} />
           <Route path="/view/:id" element={<ViewPosts />} />
           <Route path="/create" element={<CreatePost />} />

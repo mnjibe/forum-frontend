@@ -89,7 +89,7 @@ export default function Comments(props) {
                 `${comment.name}: ${comment.text}`
               ) : (
                 <>
-                  <TextField fullWidth value={text} onChange={(e) => setText(e.target.value)}></TextField>
+                  <TextField fullWidth placeholder = {comment.text} value={text} onChange={(e) => setText(e.target.value)}></TextField>
                   <Button  variant = "body2" onClick={() => updateComment(comment._id)}>
                     Update
                   </Button>
