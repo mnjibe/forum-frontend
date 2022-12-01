@@ -23,7 +23,6 @@ const ResetPassword = () => {
     axios
       .put(`${process.env.REACT_APP_URL}/api/v1/auth/resetpassword/`, {
         password,
-        token,
       })
       .then((res) => { 
         console.log("Posting:::  ", res.data);

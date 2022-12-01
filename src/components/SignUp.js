@@ -23,7 +23,7 @@ export default function SignUp() {
     const register = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:6006/api/v1/auth/register", {
+      .post(`${process.env.REACT_APP_URL}/api/v1/auth/register`, {
         name,
         email,
         password,
@@ -31,6 +31,7 @@ export default function SignUp() {
       .then((res) => { 
         console.log("Posting:::  ", res.data);
         navigate(`/userpage`);
+        window.location.reload();
       })
       .catch((err) => console.log("err::  ", err));
   };

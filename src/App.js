@@ -1,5 +1,5 @@
 import * as React from "react";
-import axios from "axios";
+import { axiosInstance as axios } from "./service/axios";
 import { useState, useEffect } from "react";
 import Sidebar from "./components/Sidebar";
 import ViewPosts from "./components/ViewPost";
@@ -22,7 +22,7 @@ import { BrowserRouter as Router, Route, Routes, useLocation, useParams } from "
 
 function App() {
 
-  axios.get("http://localhost:6006/api/v1/auth/me")
+  axios.get(`${process.env.REACT_APP_URL}/api/v1/auth/me`)
   .then((res) => {
     if(res);
     console.log("Pulling:::  " , res.data.data)
@@ -42,10 +42,11 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/reset" element={<ForgotPW />} />
           <Route path="/users/:userId/posts" element={<AllPosts />} />
-          <Route path="/resetpassword/:id" element={<ResetPassword />} />
+          <Route path="/resetpassword/" element={<ResetPassword />} />
           <Route path="/checkemail" element={<CheckEmail />} />
           <Route path="/userpage" element={<UserPage />} />
           <Route path="/changepw" element={<ChangePW />} />
+          <Route path="/editpost/:id" element={<EditPost/>} />
         </Routes>
       </Router>
     </div>
@@ -53,21 +54,3 @@ function App() {
 }
 export default App;
 
-const ResetPassword1 = () => {
-    const params = useParams();
-    const { id } = params;
-
-    useEffect(() => {
-        if (!id) {
-            // Send user away from this page
-        } else {
-            // Validate the id - call the server to check that this id is valid and that the user initiated it
-            // if valid, do nothing, otherwise you send user away
-        }
-    }, []);
-    return (
-        <>
-        {/* new password and confirm password fields and button */}
-        </>
-    )
-}

@@ -15,22 +15,38 @@ import IconButton from "@mui/material/IconButton";
 import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import { useNavigate, useParams, Route, Routes } from "react-router-dom";
-import EditPost from "./EditPost";
+import EditP from "./EditP";
+import Comments from "./Comments";
 
-const ViewPosts = () => { 
+const ViewPosts = () => {
   const navigate = useNavigate();
-  const { id } = useParams(); 
+  const { id } = useParams();
+  const [data, setData] = React.useState(null);
+  const [text, setText] = React.useState("");
+  var token = localStorage.getItem("token");
+  var decoded = jwt_decode(token);
+  var decodedHeader = jwt_decode(token, { header: true });
+  console.log("User::: ", decoded);
+
+  const [authUser, setAuthUser] = React.useState(false); // !!(decoded.id === data.user);
+  console.log("AUTHUSER:::", authUser);
+
   React.useEffect(() => {
     axios
-    .get(`http://localhost:6006/api/v1/posts/${id}`)
-    .then((res) => {
-      setData(res.data.data);
-      console.log("Pulling::: " , res.data.data)
-    })
-    .catch((err) => console.log("err::  ", err));
-    
-  }, [])
-  const [comments, setComments] = React.useState("")
+      .get(`${process.env.REACT_APP_URL}/api/v1/posts/${id}`)
+      .then((res) => {
+        setData(res.data.data);
+        setAuthUser(decoded.id === res.data.data.user);
+        const posts = [];
+        for (let key in res.data.data) {
+          posts.push({ ...res.data.data[key], id: key });
+        }
+        console.log("Pulling::: ", res.data.data);
+      })
+      .catch((err) => console.log("err::  ", err));
+  }, []);
+  {
+    /*const [comments, setComments] = React.useState("")
   React.useEffect(() => {
     axios
     .get(`http://localhost:6006/api/v1/posts/${id}/comments`)
@@ -40,38 +56,26 @@ const ViewPosts = () => {
     })
     .catch((err) => console.log("err::  ", err));
     
-  }, [])
-  const [data, setData] = React.useState([]);
-  const [text, setText] = React.useState("");
+  }, []) */
+  }
   const postComment = (e) => {
     e.preventDefault();
     authentication
-      .post(`http://localhost:6006/api/v1/posts/${id}/comments`, {
+      .post(`${process.env.REACT_APP_URL}/api/v1/posts/${id}/comments`, {
         text,
       })
-      .then((res) => { 
+      .then((res) => {
         console.log("Posting:::  ", res.data.data);
+        window.location.reload();
       })
       .catch((err) => console.log("err::  ", err));
   };
-  const deletePost = ()=> {
-    authentication.delete(`http://localhost:6006/api/v1/posts/${id}`)
-    console.log("DELETING")
-    navigate("/allquestions")
-}
-const editPost = ()=> {
-      <Routes> 
-        <Route path="/editpost" component = {<EditPost post = {data} />} /> 
-      </Routes> 
-      navigate("/editpost")
-}
-  var token = localStorage.getItem("token");
-  var decoded = jwt_decode(token);
-  var decodedHeader = jwt_decode(token, { header: true });
-  console.log("User::: " , decoded); 
+  const deletePost = () => {
+    authentication.delete(`${process.env.REACT_APP_URL}/api/v1/posts/${id}`);
+    console.log("DELETING");
+    navigate("/allquestions");
+  };
 
-  const authUser = !!(decoded.id === data.user)
-  console.log("AUTHUSER:::", authUser)
   return (
     <div>
       <>
@@ -81,8 +85,8 @@ const editPost = ()=> {
         >
           <Toolbar />
           <Typography>
-            <h1> {data.title} </h1>
-            <p>Added: Today ..........Viewed: -- times </p> 
+            <h1> {data?.title} </h1>
+            <p>Added: Today ..........Viewed: -- times </p>
           </Typography>
           <Divider />
           <Stack direction="row" spacing={3}>
@@ -98,16 +102,19 @@ const editPost = ()=> {
               <h6> </h6>
             </Typography>
             <Typography>
-              <p>{data.body}</p>
+              <p>{data?.body}</p>
             </Typography>
           </Stack>
-          <Divider /> 
-          {authUser ? 
-          <div>
-          <Button variant = "body2" onClick = {deletePost}> Delete </Button>
-          <Button variant = "body2" onClick={editPost}>  Edit </Button>
-          </div>
-           : null} 
+          <Divider />
+          {authUser ? (
+            <div>
+              <Button variant="body2" onClick={deletePost}>
+                {" "}
+                Delete{" "}
+              </Button>
+              <EditP post={data} />
+            </div>
+          ) : null}
           <TextField
             sx={{ marginTop: "20px", marginLeft: "0px", width: "950px" }}
             id="filled-multiline-static"
@@ -115,7 +122,7 @@ const editPost = ()=> {
             multiline
             rows={8}
             variant="filled"
-            value = {text}
+            value={text}
             onChange={(e) => setText(e.target.value)}
           />
 
@@ -127,7 +134,10 @@ const editPost = ()=> {
             onClick={postComment}
           >
             Post Your Answer
-          </Button>
+          </Button> 
+          <Divider /> 
+          <Typography> <h2> Comments </h2></Typography>
+          {data && <Comments post={data} />}
         </Box>
       </>
     </div>

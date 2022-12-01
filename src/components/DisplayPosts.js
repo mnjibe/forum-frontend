@@ -10,11 +10,7 @@ import {
   Divider,
   Button,
 } from "@mui/material";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { Navigate, useNavigate } from "react-router-dom";
 import Posts from "../components/Posts";
-import ViewPosts from "./ViewPost";
 
 export default class DisplayPosts extends Component {
   constructor(props) {

@@ -10,25 +10,32 @@ import TextField from "@mui/material/TextField";
 import "fontsource-roboto";
 import { Tab, Tabs, Button, ButtonGroup } from "@mui/material";
 import Stack from "@mui/material/Stack";
-import { Navigate, useNavigate } from "react-router-dom";
-import ViewPosts from "./ViewPost";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 
-function EditPost(props) { 
-   
+function EditPost() { 
+    const { id } = useParams(); 
+    React.useEffect(() => {
+    axios.get(`${process.env.REACT_APP_URL}/api/v1/posts/${id}`)
+    .then((res) => {
+      setPosts(res.data.data)
+      console.log("PULLING:::", res.data.data)
+    })
+    .catch((err) => console.log("ERR::: ", err ))
+  }, []);
     const [data, setPosts] = React.useState([]);
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
     const editData = (e) => {
       e.preventDefault();
       authentication
-        .put(`http://localhost:6006/api/v1/posts/${props.post._id}`, {
+        .put(`${process.env.REACT_APP_URL}/api/v1/posts/${id}`, {
           title,
           body,
         })
         .then((res) => { 
-          console.log("Posting:::  ", res.data.data);
-          const createdPost = res.data.data;
-          navigate(`/view/${createdPost._id}`);
+          console.log("Updating:::  ", res.data.data);
+          const updatedPost = res.data.data;
+          navigate(`/view/${updatedPost._id}`);
         })
         .catch((err) => console.log("err::  ", err));
     };
@@ -56,24 +63,25 @@ function EditPost(props) {
         </Typography>
         <form noValidate onSubmit={handleSubmit}>
           <TextField
-            id="outlined-basic"
+            id="outlined-static"
             variant="outlined"
             fullWidth
             placeholder={data.title}
+            defaultValue={data.title}
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
           <Typography>
-            <h3> Body</h3>
+            <h3> Body </h3>
             <h4> Include all information needed to answer the question</h4>
           </Typography>
           <TextField
             sx={{ marginTop: "20px", marginLeft: "0px", width: "950px" }}
             id="filled-multiline-static"
-            label="Enter Answer Here..."
             multiline
             rows={8}
             variant="filled"
+            defaultValue={data.body}
             value={body}
             onChange={(e) => setBody(e.target.value)}
           />

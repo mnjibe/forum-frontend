@@ -20,7 +20,7 @@ const CreatePost = () => {
   const postData = (e) => {
     e.preventDefault();
     axios
-      .post("/posts", {
+      .post(`${process.env.REACT_APP_URL}/api/v1/posts`, {
         title,
         body,
       })

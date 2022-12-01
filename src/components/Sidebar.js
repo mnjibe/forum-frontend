@@ -20,6 +20,7 @@ import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import {Button, ButtonGroup } from '@mui/material';
 import { Navigate, useNavigate, Link } from 'react-router-dom';
+import { axiosInstance as axios } from "../service/axios";
 
 const drawerWidth = 240;
 
@@ -71,7 +72,15 @@ const Sidebar = () => {
     const logOut = () => {
         localStorage.removeItem("token")
     }
-
+const [user, setUser] = React.useState("")
+React.useEffect(() => {
+axios.get(`${process.env.REACT_APP_URL}/api/v1/auth/me`)
+.then((res)=> { 
+    setUser(res.data.data)
+    console.log("Current User::: ", res.data.data)
+})
+.catch(err => console.log("err:: ", err))
+}, [])
     return (
             <Box sx={{ display: 'flex' }}>
                 <CssBaseline />
@@ -80,27 +89,14 @@ const Sidebar = () => {
 
                         <Typography sx={{ fontSize: '2rem' }} color='primary'> FSC Forum</Typography>
                         <div>
-                            <Search>
-                                <SearchIconWrapper>
-                                    <SearchIcon />
-                                </SearchIconWrapper>
-                                <StyledInputBase
-                                    placeholder="Search…"
-                                    inputProps={{ 'aria-label': 'search' }}
-                                />
-                            </Search>
-
 
                         </div>
-                        <IconButton 
-                        sx={{marginLeft: '615px'}}
-                        component = "a"
-                        href = "/userpage" > 
-                            <AccountBoxIcon 
-                               size = "large"
-                               />
-                        </IconButton>
+                        {isLoggedIn ?  <IconButton sx={{marginLeft: '1000px'}} component = "a" href = "/userpage" > 
+                                       <AccountBoxIcon size = "large" />
+                                       </IconButton>  : null}
 
+                        {isLoggedIn ?  <Typography> <h4> Hi, {user.name}! </h4></Typography> : null }
+                       
                         <ButtonGroup sx={{ marginLeft: 'auto' }}> 
                             <Button
                                 variant='outlined'

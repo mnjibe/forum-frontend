@@ -21,7 +21,7 @@ const DisplayUsers = () => {
 
   React.useEffect(() => {
     axios
-      .get("http://localhost:6006/api/v1/users")
+      .get(`${process.env.REACT_APP_URL}/api/v1/users`)
       .then((res) => {
         console.log("Pulling From::  ", res.data.data);
         setUsers(res.data.data);

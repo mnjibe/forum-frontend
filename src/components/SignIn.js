@@ -20,7 +20,7 @@ export default function SignIn() {
   const postData = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:6006/api/v1/auth/login", {
+      .post(`${process.env.REACT_APP_URL}/api/v1/auth/login`, {
         email,
         password,
       })
@@ -28,6 +28,7 @@ export default function SignIn() {
         console.log("Posting:::  ", res.data);
         localStorage.setItem("token", res.data.token);
         navigate(`/userpage`);
+        window.location.reload();
       })
       .catch((err) => console.log("err::  ", err));
   };

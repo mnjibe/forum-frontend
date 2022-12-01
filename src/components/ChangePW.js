@@ -20,13 +20,14 @@ export default function ChangePW() {
     const postData = (e) => {
       e.preventDefault();
       axios
-        .put("http://localhost:6006/api/v1/auth/updatepassword", {
+        .put(`${process.env.REACT_APP_URL}/api/v1/auth/updatepassword`, {
           current_password,
           new_password,
         })
         .then((res) => { 
           console.log("Changing:::  ", res.data);
-          navigate(`/login`);
+          navigate(`/signin`);
+          localStorage.removeItem("token");
         })
         .catch((err) => console.log("err::  ", err));
     };

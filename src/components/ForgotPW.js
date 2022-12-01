@@ -19,7 +19,7 @@ export default function SignIn() {
   const resetPW = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:6006/api/v1/auth/forgotpassword", {
+      .post(`${process.env.REACT_APP_URL}/api/v1/auth/forgotpassword`, {
         email,
       })
       .then((res) => { 

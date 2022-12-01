@@ -13,10 +13,11 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 
 
 const UserPage = () => { 
+  const navigate = useNavigate();
   //Gets Current User
   const [user, setUser] = useState("");
   useEffect(() => {
-    axios.get("http://localhost:6006/api/v1/auth/me")
+    axios.get(`${process.env.REACT_APP_URL}/api/v1/auth/me`)
     .then((res) => {
       setUser(res.data.data);
       console.log("Pulling:::  " , res.data.data)
@@ -27,11 +28,14 @@ const UserPage = () => {
   const [name, setName] = useState("")
   const changeUsername = (e) => {
     e.preventDefault();
-    axios.post(`http://localhost:6006/api/v1/auth/updatedetails`, {
+    axios.put(`${process.env.REACT_APP_URL}/api/v1/auth/updatedetails`, {
         name,
+        email : `${user.email}`
       })
       .then((res) => { 
         console.log("Changing:::  ", res.data.data);
+        navigate("/userpage");
+        window.location.reload();
       })
     }
   //Change Email
@@ -73,10 +77,10 @@ const UserPage = () => {
             />
             <Button 
             variant = "body2"
-            onClick = {changeUsername}
-            >
+            onClick = {changeUsername}>
               Change Username
-            </Button>
+            </Button> 
+
             <Divider />
             <h5> Email ................ {user.email}  </h5>
             <TextField 
