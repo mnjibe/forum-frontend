@@ -125,7 +125,7 @@ axios.get(`${process.env.REACT_APP_URL}/api/v1/auth/me`)
                     sx={{
                         width: drawerWidth,
                         flexShrink: 0,
-                        [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box', backgroundColor: '#808080' },
+                        [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box', backgroundColor: '#ffffff' },
                     }}
                 >
                     <Toolbar />

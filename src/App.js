@@ -16,6 +16,7 @@ import UserPage from "./components/UserPage";
 import ChangePW from "./components/ChangePW";
 import EditPost from "./components/EditPost"
 import DEBUTTON from "./components/DEButton";
+import AccountCreated from "./components/AccountCreated";
 import "./App.css";
 import "fontsource-roboto";
 import { BrowserRouter as Router, Route, Routes, useLocation, useParams } from "react-router-dom";
@@ -47,6 +48,7 @@ function App() {
           <Route path="/userpage" element={<UserPage />} />
           <Route path="/changepw" element={<ChangePW />} />
           <Route path="/editpost/:id" element={<EditPost/>} />
+          <Route path="/accreated" element={<AccountCreated/>} />
         </Routes>
       </Router>
     </div>

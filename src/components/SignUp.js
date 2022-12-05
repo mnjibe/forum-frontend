@@ -29,9 +29,14 @@ export default function SignUp() {
         password,
       })
       .then((res) => { 
+        axios
+          .post(`${process.env.REACT_APP_URL}/api/v1/auth/login`, {
+        email: {email},
+        password: {password}
+      })
         console.log("Posting:::  ", res.data);
-        navigate(`/userpage`);
-        localStorage.setItem("token");
+        navigate(`/accreated`);
+        localStorage.setItem("token"); 
         window.location.reload();
       })
       .catch((err) => console.log("err::  ", err));
