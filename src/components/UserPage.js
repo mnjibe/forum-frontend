@@ -39,7 +39,19 @@ const UserPage = () => {
       })
     }
   //Change Email
-  
+  const [email, setEmail] = useState("")
+  const changeEmail = (e) => {
+    e.preventDefault();
+    axios.put(`${process.env.REACT_APP_URL}/api/v1/auth/updatedetails`, {
+        name : `${user.name}`,
+        email,
+      })
+      .then((res) => { 
+        console.log("Changing:::  ", res.data.data);
+        navigate("/userpage");
+        window.location.reload();
+      })
+    }
     return( 
       <Box
       component="main"
@@ -86,9 +98,12 @@ const UserPage = () => {
             <TextField 
             variant= "outlined"
             label = "New Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             />
             <Button 
             variant = "body2"
+            onClick = {changeEmail}
             >
               Change Email
             </Button>
